@@ -21,9 +21,9 @@ logger = logging.getLogger("gold_dashboard")
 # ============================================================================
 # 1. CONFIG
 # ============================================================================
-st.set_page_config(page_title="Galeri24 Gold Analytics", page_icon="🥇", layout="wide")
+st.set_page_config(page_title="Galeri24 Aurum Analytics", page_icon="🥇", layout="wide")
 
-APP_TITLE = "Galeri24 Gold Price Analytics"
+APP_TITLE = "Galeri24 Aurum Price Analytics"
 SPREADSHEET_NAME = "Data Emas"
 EXCLUDED_CATEGORIES = {"SENTRA BUYBACK - SENTRA BUYBACK"}
 DATA_START_LABEL = "05 Juni 2026"
@@ -760,7 +760,7 @@ def main() -> None:
                                  min_value=min_date, max_value=max_date)
     brand_options = sorted(daily_w["kategori"].unique())
     with f3:
-        brands = st.multiselect("🏷️ Merek di grafik", brand_options, default=brand_options[:5])
+        brands = st.multiselect("🏷️ Merek di grafik", brand_options, default=brand_options)
 
     if not (isinstance(selected, tuple) and len(selected) == 2):
         st.info("Pilih tanggal akhir untuk melengkapi rentang.")
