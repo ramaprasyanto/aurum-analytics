@@ -27,7 +27,7 @@ APP_TITLE = "Galeri24 Aurum Price Analytics"
 SPREADSHEET_NAME = "Data Emas"
 EXCLUDED_CATEGORIES = {"SENTRA BUYBACK - SENTRA BUYBACK"}
 DATA_START_LABEL = "05 Juni 2026"
-DATA_TTL_SECONDS = 30 * 60
+DATA_TTL_SECONDS = 60 * 60
 REFRESH_COOLDOWN_S = 120
 STALE_AFTER_HOURS = 24
 SESSION_HOURS_PER_DAY = 12  # 08:00..19:00
@@ -203,7 +203,7 @@ def prepare_data(
     return raw, current, daily, quality
 
 
-@st.cache_data(ttl=DATA_TTL_SECONDS, show_spinner="Mengambil & memproses data...")
+@st.cache_data(ttl=DATA_TTL_SECONDS, show_spinner="Mengambil & memproses data...", max_entries=2)
 def load_prepared() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict]:
     """Ambil + bersihkan sekali per TTL. Exception tidak pernah ikut ter-cache."""
     return prepare_data(*load_raw_sheets())
@@ -718,16 +718,17 @@ def main() -> None:
 
     st.divider()
 
-    refresh_col, status_col = st.columns([1, 5])
+    status_col, refresh_col = st.columns([5, 1])
     with refresh_col:
-        if st.button("🔄 Refresh", width="stretch"):
-            store = app_store()
-            if time.time() - store["last_refresh"] < REFRESH_COOLDOWN_S:
-                st.toast(f"Tunggu {REFRESH_COOLDOWN_S}s antar refresh.")
-            else:
-                store["last_refresh"] = time.time()
-                load_prepared.clear()
-                st.rerun()
+        st.empty()
+    #     if st.button("🔄 Refresh", width="stretch"):
+    #         store = app_store()
+    #         if time.time() - store["last_refresh"] < REFRESH_COOLDOWN_S:
+    #             st.toast(f"Tunggu {REFRESH_COOLDOWN_S}s antar refresh.")
+    #         else:
+    #             store["last_refresh"] = time.time()
+    #             load_prepared.clear()
+    #             st.rerun()
 
     (raw, current, daily, quality), fallback_notice = load_with_fallback()
 
