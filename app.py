@@ -27,7 +27,7 @@ APP_TITLE = "Galeri24 Aurum Price Analytics"
 SPREADSHEET_NAME = "Data Emas"
 EXCLUDED_CATEGORIES = {"SENTRA BUYBACK - SENTRA BUYBACK"}
 DATA_START_LABEL = "05 Juni 2026"
-DATA_TTL_SECONDS = 15 * 60
+DATA_TTL_SECONDS = 30 * 60
 REFRESH_COOLDOWN_S = 120
 STALE_AFTER_HOURS = 24
 SESSION_HOURS_PER_DAY = 12  # 08:00..19:00
@@ -712,7 +712,11 @@ def main() -> None:
     st.caption(
         "Harga ritel emas batangan Galeri24 (bukan spot XAU/USD). Data diobservasi tiap jam "
         "08:00–19:00 WIB; sesi malam tidak terobservasi. Bukan saran investasi."
+        )
+    st.caption(    "✨ **Designed & Developed by** [**Rama Prasyanto**](https://ramaprasyanto.my.id) | 💡 **Data Pipeline & Analytics**"
     )
+
+    st.divider()
 
     refresh_col, status_col = st.columns([1, 5])
     with refresh_col:
