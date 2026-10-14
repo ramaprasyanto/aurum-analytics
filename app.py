@@ -28,7 +28,7 @@ SPREADSHEET_NAME = "Data Emas"
 EXCLUDED_CATEGORIES = {"SENTRA BUYBACK - SENTRA BUYBACK"}
 DATA_START_LABEL = "05 Juni 2026"
 DATA_TTL_SECONDS = 60 * 60
-REFRESH_COOLDOWN_S = 120
+REFRESH_COOLDOWN_S = 300
 STALE_AFTER_HOURS = 24
 SESSION_HOURS_PER_DAY = 12  # 08:00..19:00
 TIMEZONE = "Asia/Jakarta"
@@ -718,17 +718,17 @@ def main() -> None:
 
     st.divider()
 
-    status_col, refresh_col = st.columns([5, 1])
+    refresh_col,status_col = st.columns([1, 5])
     with refresh_col:
         st.empty()
-    #     if st.button("🔄 Refresh", width="stretch"):
-    #         store = app_store()
-    #         if time.time() - store["last_refresh"] < REFRESH_COOLDOWN_S:
-    #             st.toast(f"Tunggu {REFRESH_COOLDOWN_S}s antar refresh.")
-    #         else:
-    #             store["last_refresh"] = time.time()
-    #             load_prepared.clear()
-    #             st.rerun()
+        if st.button("🔄 Refresh", width="stretch"):
+            store = app_store()
+            if time.time() - store["last_refresh"] < REFRESH_COOLDOWN_S:
+                st.toast(f"Tunggu {REFRESH_COOLDOWN_S}s antar refresh.")
+            else:
+                store["last_refresh"] = time.time()
+                load_prepared.clear()
+                st.rerun()
 
     (raw, current, daily, quality), fallback_notice = load_with_fallback()
 
