@@ -25,7 +25,7 @@ st.set_page_config(page_title="Galeri24 Aurum Analytics", page_icon="🥇", layo
 
 APP_TITLE = "Galeri24 Aurum Price Analytics"
 SPREADSHEET_NAME = "Data Emas"
-EXCLUDED_CATEGORIES = {"SENTRA BUYBACK - SENTRA BUYBACK"}
+EXCLUDED_CATEGORIES = {"SENTRA BUYBACK - SENTRA BUYBACK", "ANTAM BATIK"}
 DATA_START_LABEL = "05 Juni 2026"
 DATA_TTL_SECONDS = 60 * 60
 REFRESH_COOLDOWN_S = 300
@@ -764,8 +764,9 @@ def main() -> None:
         selected = st.date_input("📅 Rentang historis", value=(default_start, max_date),
                                  min_value=min_date, max_value=max_date)
     brand_options = sorted(daily_w["kategori"].unique())
+    brand_default = sorted(daily_w["kategori"].unique())
     with f3:
-        brands = st.multiselect("🏷️ Merek di grafik", brand_options, default=brand_options)
+        brands = st.multiselect("🏷️ Merek di grafik", brand_options, default=brand_default)
 
     if not (isinstance(selected, tuple) and len(selected) == 2):
         st.info("Pilih tanggal akhir untuk melengkapi rentang.")
